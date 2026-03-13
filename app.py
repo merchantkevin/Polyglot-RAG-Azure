@@ -68,22 +68,23 @@ if prompt := st.chat_input("Ask a question about the document..."):
                 )
                 context = "\n\n".join([doc['content'] for doc in results])
 
-                # 3. Ask GPT-4o (Strict Grounding)
-                system_prompt = f"""You are a strict data-grounding assistant. Your ONLY purpose is to answer questions based EXACTLY on the provided context.
+                # 3. Ask GPT-4o (Balanced Grounding)
+                system_prompt = f"""You are an enterprise data assistant. Your ONLY source of knowledge is the <context> block below.
 
                 <context>
                 {context}
                 </context>
 
                 Rules:
-                1. You must read the context above.
-                2. If the answer to the user's question is NOT explicitly written in the <context> block, you must reply with the exact phrase: "I cannot answer this based on the provided document."
-                3. Do not perform outside calculations, use general knowledge, or make assumptions.
+                1. You must answer the user's question using ONLY the information found in the <context> block.
+                2. You are allowed to summarize, synthesize, and explain the provided context to answer the user's prompt.
+                3. If the context does not contain relevant information to address the user's question, you must reply EXACTLY with: "I cannot answer this based on the provided document."
+                4. NEVER use your pre-trained outside knowledge. NEVER answer general knowledge, trivia, coding or math questions.
                 """
                 
                 response = OPENAI_CLIENT.chat.completions.create(
                     model="gpt-4o",
-                    temperature=0.0,  # for strict obedience
+                    temperature=0.0,  # Keep this at 0.0 to stop hallucination
                     messages=[
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": prompt}
