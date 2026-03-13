@@ -1,0 +1,7 @@
+azure-core
+azure-search-documents==11.4.0
+openai
+pypdf
+python-dotenv
+requests
+streamlit

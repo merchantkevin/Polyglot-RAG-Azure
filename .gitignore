@@ -1,0 +1,13 @@
+# Security
+.env
+openai_conn.yaml
+*.yaml
+
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# Python Cache
+__pycache__/
+*.pyc
