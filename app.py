@@ -68,10 +68,22 @@ if prompt := st.chat_input("Ask a question about the document..."):
                 )
                 context = "\n\n".join([doc['content'] for doc in results])
 
-                # 3. Ask GPT-4o
-                system_prompt = f"You are a helpful enterprise assistant. Answer using ONLY the following retrieved context:\n{context}"
+                # 3. Ask GPT-4o (Strict Grounding)
+                system_prompt = f"""You are a strict data-grounding assistant. Your ONLY purpose is to answer questions based EXACTLY on the provided context.
+
+                <context>
+                {context}
+                </context>
+
+                Rules:
+                1. You must read the context above.
+                2. If the answer to the user's question is NOT explicitly written in the <context> block, you must reply with the exact phrase: "I cannot answer this based on the provided document."
+                3. Do not perform outside calculations, use general knowledge, or make assumptions.
+                """
+                
                 response = OPENAI_CLIENT.chat.completions.create(
                     model="gpt-4o",
+                    temperature=0.0,  # for strict obedience
                     messages=[
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": prompt}
