@@ -1,6 +1,6 @@
 # 🌍 Polyglot-RAG-Azure
 
-**Live Demo:** [Link to your Streamlit App will go here]
+**Live Demo:** https://polyglot-rag-azure-ehaqvxwdrtbt4mbmsvc2mt.streamlit.app/
 
 **Built for Azure AI-102 Certification Prep**
 
