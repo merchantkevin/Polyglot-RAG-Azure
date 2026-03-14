@@ -12,8 +12,8 @@ This project is an end-to-end Retrieval Augmented Generation (RAG) pipeline buil
 
 ## 🏗️ Cloud Infrastructure & Architecture
 * **Intelligent Extraction:** Azure AI Document Intelligence (`prebuilt-layout`) extracts text and complex table structures from PDFs.
-* **Translation Engine:** Azure AI Translator normalizes foreign vendor data (Spanish, French, German) into English.
-* **Vector Database:** Azure AI Search (F0 Vector Index) stores embeddings alongside metadata (`source_file`).
+* **Translation Engine:** Azure AI Translator normalizes foreign vendor data (Spanish, French, German, etc.) into English.
+* **Vector Database:** Azure AI Search (Vector Index) stores embeddings alongside metadata (`source_file`).
 * **Embeddings:** OpenAI `text-embedding-3-small` (1536 dimensions).
 * **LLM / Generation:** OpenAI `gpt-4o` for enterprise grounding.
 * **User Interface:** Streamlit Community Cloud.
@@ -31,3 +31,10 @@ This project is an end-to-end Retrieval Augmented Generation (RAG) pipeline buil
 4. Place sample PDFs in a `documents/` folder.
 5. Run the ingestion pipeline: `python pipeline.py`
 6. Launch the UI: `streamlit run app.py`
+
+## 🛠️ Future Enhancements
+* Semantic Caching: Storing commonly asked questions and respective answers in a fast cache to reply faster while saving LLM tokens.
+* Automated Ingestion: When admins add a file to the storage, they won't need to run the pipeline manually, instead the pipeline will run automatically upon file upload
+* Source file access: Users should be able to find the exact space AI found it's answer from. Access should be based on company policy.
+
+Suggest some more enhancements!
