@@ -41,10 +41,10 @@ st.title("Global Procurement & Finance Portal")
 st.info("""
 **👋 Welcome to the NexaCorp Auditor Demo!**
 
-I have ingested the global vendor ecosystem for NexaCorp. This includes highly structured, multi-lingual PDFs (Spanish Hardware Invoices, French Logistics POs, German Real Estate Leases, etc.). 
-My Azure pipeline used **Document Intelligence** to extract the tables, translated them to English, and indexed them.
+I have ingested the global vendor documents for NexaCorp, A fake multinational company with offices in Europe and USA. This includes documents in various languages (Spanish Hardware Invoices, French Logistics POs, German Real Estate Leases, etc.). 
+My Azure pipeline used **Document Intelligence** to extract the tables, translated them to English using the Azure AI Translator, and indexed them.
 
-**Try auditing our global spend:**
+**Try asking auditing questions for NexaCorp's global spend:**
 * *"What is our total monthly base rent in Munich?"*
 * *"How many laptops did the Madrid office buy, and what was the IVA tax applied?"*
 * *"What is the fuel surcharge for the Paris freight shipments?"*
