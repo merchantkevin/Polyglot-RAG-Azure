@@ -86,28 +86,31 @@ if prompt := st.chat_input("Ask a question about our global vendors or contracts
                     context_blocks.append(f"[Source: {doc['source_file']}]\n{doc['content']}")
                 context = "\n\n".join(context_blocks)
 
-                # 3. Ask GPT-4o (Strict Enterprise Grounding with Citations)
-                system_prompt = f"""You are an enterprise financial and legal auditing assistant for NexaCorp. 
-                Your ONLY source of knowledge is the <context> block below.
-
+                # 3. Ask GPT-4o (Now with Conversational Memory!)
+                system_prompt = f"""You are a smart enterprise financial and legal auditing assistant for NexaCorp. 
+                
                 <context>
                 {context}
                 </context>
 
                 Rules:
-                1. You must answer the user's question using ONLY the information found in the <context> block.
-                2. You MUST cite the source file you used to answer the question at the end of your response (e.g., "Source: invoice_madrid_es.pdf").
-                3. If the context does not contain relevant information to address the user's question, you must reply EXACTLY with: "I cannot find this information in the current global vendor database."
-                4. NEVER use your pre-trained outside knowledge. NEVER answer general knowledge, trivia, or math questions.
+                1. Answer the user's question using ONLY the <context> block AND our previous conversation history.
+                2. If the user asks a follow-up math question (like "add them up" or "what is the difference"), use the exact data and numbers from your previous answers in the chat history to calculate it.
+                3. You MUST cite the source file you used. If calculating based on previous answers, cite the sources from those previous answers.
+                4. If the context and history do not contain the answer, reply EXACTLY with: "I cannot find this information currently, please ask reframe the question!"
                 """
+                
+                # Build the memory payload for OpenAI
+                messages_payload = [{"role": "system", "content": system_prompt}]
+                
+                # Appending the recent chat history (last 6 messages to save on token costs)                
+                for msg in st.session_state.messages[-6:]: 
+                    messages_payload.append({"role": msg["role"], "content": msg["content"]})
                 
                 response = OPENAI_CLIENT.chat.completions.create(
                     model="gpt-4o",
                     temperature=0.0,
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": prompt}
-                    ]
+                    messages=messages_payload
                 )
                 
                 answer = response.choices[0].message.content
