@@ -32,7 +32,7 @@ This project is an end-to-end Retrieval Augmented Generation (RAG) pipeline buil
 5. Run the ingestion pipeline: `python pipeline.py`
 6. Launch the UI: `streamlit run app.py`
 
-## 🛠️ Future Enhancements
+## 💡 Future Enhancements
 * Semantic Caching: Storing commonly asked questions and respective answers in a fast cache to reply faster while saving LLM tokens.
 * Automated Ingestion: When admins add a file to the storage, they won't need to run the pipeline manually, instead the pipeline will run automatically upon file upload
 * Source file access: Users should be able to find the exact space AI found it's answer from. Access should be based on company policy.
