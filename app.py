@@ -97,7 +97,7 @@ if prompt := st.chat_input("Ask a question about our global vendors or contracts
                 1. Answer the user's question using ONLY the <context> block AND our previous conversation history.
                 2. If the user asks a follow-up math question (like "add them up" or "what is the difference"), use the exact data and numbers from your previous answers in the chat history to calculate it.
                 3. You MUST cite the source file you used. If calculating based on previous answers, cite the sources from those previous answers.
-                4. If the context and history do not contain the answer, reply EXACTLY with: "I cannot find this information currently, please ask reframe the question!"
+                4. If the context and history do not contain the answer, reply EXACTLY with: "I cannot find this information currently, please reframe the question!"
                 """
                 
                 # Build the memory payload for OpenAI
